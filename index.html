@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعصار مـونـاكو - الشد الخارجي</title>
+    <style>
+        body { background-color: #0d0d0d; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
+        .box { background: #1a1a1a; border: 2px solid #ff4b2b; border-radius: 15px; padding: 20px; max-width: 400px; margin: auto; box-shadow: 0 0 15px #ff4b2b; }
+        h2 { color: #ff4b2b; text-shadow: 0 0 5px #000; }
+        label { display: block; text-align: right; margin: 10px 0 5px; color: #ff4b2b; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; background: #000; border: 1px solid #333; border-radius: 5px; color: white; box-sizing: border-box; }
+        .btn { background: linear-gradient(45deg, #ff416c, #ff4b2b); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .footer { margin-top: 20px; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🇫🇷 عـلـي مـونـاكو 🇫🇷</h2>
+        <p>يوزر تليجرام: @A_K_F5</p>
+        <hr style="border: 0.5px solid #333;">
+        <label>📧 بريد الدعم:</label>
+        <input type="text" id="email" value="stopCA@telegram.org, abuse@telegram.org" readonly>
+        <label>❄️ الموضوع:</label>
+        <input type="text" id="subject" value="URGENT: Illegal Child Exploitation - @T_T_0_0">
+        <label>📝 نص البلاغ:</label>
+        <textarea id="body" rows="6">To Telegram Safety Team,
+I report @T_T_0_0 for child exploitation. Immediate ban required.
+Target: https://t.me/T_T_0_0</textarea>
+        <button class="btn" onclick="send()">🚀 إرسال البلاغ الخارجي</button>
+    </div>
+    <div class="footer">بإشراف عـلـي مـونـاكو | إعصار الشد 🌪️</div>
+    <script>
+        function send() {
+            const email = document.getElementById('email').value;
+            const sub = encodeURIComponent(document.getElementById('subject').value);
+            const msg = encodeURIComponent(document.getElementById('body').value);
+            window.location.href = `mailto:${email}?subject=${sub}&body=${msg}`;
+        }
+    </script>
+</body>
+</html>
