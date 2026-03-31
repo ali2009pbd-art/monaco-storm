@@ -3,60 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إعصار مـونـاكو - الشد الخارجي</title>
+    <title>إعصار مـونـاكو - قفل الاشتراك</title>
     <style>
-        body { 
-            background-color: #0d0d0d; 
-            color: white; 
-            font-family: sans-serif; 
-            text-align: center; 
-            padding: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-        .box { background: rgba(26,26,26,0.9); border: 2px solid #00eeff; border-radius: 15px; padding: 20px; max-width: 400px; margin: auto; box-shadow: 0 0 25px #00eeff; position: relative; z-index: 20; }
-        h2 { color: #00eeff; text-shadow: 0 0 5px #000; }
-        label { display: block; text-align: right; margin: 10px 0 5px; color: #00eeff; font-weight: bold; }
-        input, textarea { width: 100%; padding: 10px; background: #000; border: 1px solid #333; border-radius: 5px; color: white; box-sizing: border-box; }
-        .btn { background: linear-gradient(45deg, #00eeff, #0000ff); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
-        .footer { margin-top: 20px; font-size: 12px; color: #666; position: relative; z-index: 20; }
-        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 10; }
-        .waving-flag { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; opacity: 0.15; transform-origin: top; animation: flagWave 5s ease-in-out infinite; pointer-events: none;}
+        body { background-color: #0d0d0d; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; overflow: hidden; position: relative; }
+        
+        /* Blue Flame & Flag Background */
+        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 5; }
+        .waving-flag { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; opacity: 0.15; pointer-events: none; animation: flagWave 5s ease-in-out infinite; }
         .waving-flag img { width: 100%; height: 100%; object-fit: cover; }
-        @keyframes flagWave { 0%, 100% { transform: scale(1) translateY(0); } 50% { transform: scale(1.05) translateY(-20px); } }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; }
-        .tg-btn { background: #0088cc; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 18px; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; margin-bottom: 20px;}
+        @keyframes flagWave { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+        /* Full Screen Mandatory Overlay */
+        .mandatory-lock { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; box-sizing: border-box; }
+        .lock-box { background: #1a1a1a; border: 3px solid #00eeff; border-radius: 20px; padding: 30px; max-width: 450px; box-shadow: 0 0 50px #00eeff; }
+        .lock-box h2 { color: #00eeff; margin-bottom: 20px; }
+        .lock-box p { font-size: 18px; margin-bottom: 30px; line-height: 1.6; }
+        
+        /* UI Elements */
+        .box { background: rgba(26,26,26,0.95); border: 2px solid #00eeff; border-radius: 15px; padding: 20px; max-width: 400px; margin: 100px auto 0; box-shadow: 0 0 30px #00eeff; position: relative; z-index: 20; }
+        .tg-btn { background: linear-gradient(45deg, #0088cc, #00eeff); color: white; border: none; padding: 18px 40px; border-radius: 12px; font-size: 20px; font-weight: bold; text-decoration: none; display: inline-block; transition: 0.3s; box-shadow: 0 0 15px #0088cc; }
+        .tg-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px #00eeff; }
+        .btn { background: linear-gradient(45deg, #00eeff, #0000ff); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        input, textarea { width: 100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 8px; color: white; margin-bottom: 10px; box-sizing: border-box; }
     </style>
 </head>
 <body>
+    <div class="mandatory-lock" id="lock-screen">
+        <div class="lock-box">
+            <h2>⚠️ تـنـبـيـه إجـبـاري ⚠️</h2>
+            <p>هذا الموقع محمي بحقوق <b>علي موناكو</b>.<br>لن تتمكن من الدخول أو استخدام الأداة إلا بعد الاشتراك في القناة الرسمية.</p>
+            <a href="https://t.me/Monaco_Diary" class="tg-btn" target="_blank" onclick="allowUnlock()">اشترك هنا و ضل شد 🇫🇷</a>
+            <p style="font-size: 12px; color: #666; margin-top: 20px;">بعد الاشتراك، اضغط على الزر أدناه للتفعيل</p>
+            <button class="btn" id="unlock-trigger" style="display:none;" onclick="completeUnlock()">✅ تم الاشتراك، افتح الأداة</button>
+        </div>
+    </div>
+
     <div id="particles-js"></div>
     <div class="waving-flag"><img src="https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"></div>
-    <div class="overlay" id="subscription-overlay">
-        <h3>⚠️ اشتراك إجباري ⚠️</h3>
-        <p>الأداة مغلقة. اشترك لتفعيل الإعصار.</p>
-        <a href="https://t.me/Monaco_Diary" class="tg-btn" target="_blank">اشترك هنا و ضل شد 🇫🇷</a>
-        <button class="btn" style="width: auto; padding: 10px 20px;" onclick="checkSub()">لقد اشتركت، فعل الأداة</button>
-    </div>
+    
     <div class="box">
-        <h2>🇫🇷 عـلـي مـونـاكو 🇫🇷</h2>
+        <h2 style="color: #00eeff;">🇫🇷 عـلـي مـونـاكو 🇫🇷</h2>
         <p>يوزر تليجرام: @A_K_F5</p>
         <hr style="border: 0.5px solid #333;">
-        <label>📧 بريد الدعم:</label>
         <input type="text" id="email" value="stopCA@telegram.org, abuse@telegram.org" readonly>
-        <label>❄️ الموضوع:</label>
         <input type="text" id="subject" value="URGENT: Blackmail Report - @User">
-        <label>📝 نص البلاغ:</label>
-        <textarea id="body" rows="6"></textarea>
-        <button class="btn" id="send-btn" onclick="send()" disabled style="filter: grayscale(1);">🚀 إرسال البلاغ الخارجي</button>
+        <textarea id="body" rows="6" placeholder="نص البلاغ..."></textarea>
+        <button class="btn" onclick="send()">🚀 إرسال البلاغ الخارجي</button>
     </div>
-    <div class="footer">بإشراف عـلـي مـونـاكو | إعصار الشد 🌪️</div>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        function checkSub() { localStorage.setItem('monaco_sub', 'true'); document.getElementById('subscription-overlay').style.display = 'none'; const btn = document.getElementById('send-btn'); btn.disabled = false; btn.style.filter = 'grayscale(0)'; }
-        if (localStorage.getItem('monaco_sub') === 'true') { document.getElementById('subscription-overlay').style.display = 'none'; const btn = document.getElementById('send-btn'); btn.disabled = false; btn.style.filter = 'grayscale(0)'; }
-        function send() { window.location.href = `mailto:${document.getElementById('email').value}?subject=${encodeURIComponent(document.getElementById('subject').value)}&body=${encodeURIComponent(document.getElementById('body').value)}`; }
-        particlesJS("particles-js", { "particles": { "number": { "value": 150 }, "color": { "value": ["#00eeff", "#0000ff"] }, "shape": { "type": "circle" }, "opacity": { "value": 0.8 }, "size": { "value": 4 }, "move": { "enable": true, "speed": 10, "direction": "top" } } });
+        // Real Lock Logic
+        function allowUnlock() {
+            // يظهر زر التأكيد فقط بعد أن يضغط المستخدم على رابط القناة
+            document.getElementById('unlock-trigger').style.display = 'block';
+        }
+
+        function completeUnlock() {
+            localStorage.setItem('monaco_verified', 'true');
+            document.getElementById('lock-screen').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Check on load
+        if (localStorage.getItem('monaco_verified') === 'true') {
+            document.getElementById('lock-screen').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function send() {
+            window.location.href = `mailto:${document.getElementById('email').value}?subject=${encodeURIComponent(document.getElementById('subject').value)}&body=${encodeURIComponent(document.getElementById('body').value)}`;
+        }
+
+        // Blue Fire Particles
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 160 },
+                "color": { "value": ["#00eeff", "#0000ff", "#ffffff"] },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.7, "random": true },
+                "size": { "value": 4, "random": true },
+                "move": { "enable": true, "speed": 8, "direction": "top", "out_mode": "out" }
+            }
+        });
     </script>
 </body>
 </html>
-
